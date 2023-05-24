@@ -2,3 +2,8 @@
     background-color: var(--main-color);
     overflow: hidden;
 }
+.hidden-webcam {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }

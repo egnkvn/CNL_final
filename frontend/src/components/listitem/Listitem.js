@@ -8,8 +8,12 @@ import {
 import { useState } from "react";
 import { Button } from '@material-ui/core';
 import ReactPlayer from 'react-player'
-import bb from '../../tabata.mp4';
-import VideoPlayer from "../videoplayer/VideoPlayer";
+import bb from '../../videos/tabata.mp4';
+import {
+  Routes,
+  Route,
+  BrowserRouter
+} from "react-router-dom";
 
 export default function Listitem({ index }) {
   const [isHovered, setIsHovered] = useState(false);
@@ -28,13 +32,13 @@ export default function Listitem({ index }) {
       />
       {isHovered && (
         <>
-          <ReactPlayer
+          {/* <ReactPlayer
             className='react-player fixed-bottom'
             url= {bb}
             width='100%'
             height='100%'
             controls = {true}
-          />
+          /> */}
           <div className="itemInfo">
             <div className="icons">
               <PlayArrow className="icon" handleOnclick = {console.log(index)}/>
@@ -49,10 +53,10 @@ export default function Listitem({ index }) {
               <span className="limit">+16</span>
               <span>1999</span>
             </div>
-            <div className="desc">
+            {/* <div className="desc">
               Lorem ipsum dolor, sit amet consectetur adipisicing elit.
               Praesentium hic rem eveniet error possimus, neque ex doloribus.
-            </div>
+            </div> */}
             <div className="genre">Action</div>
           </div>
         </>
