@@ -8,7 +8,7 @@ import {
 import { useState } from "react";
 import { Button } from '@material-ui/core';
 import ReactPlayer from 'react-player'
-import bb from '../../videos/tabata.mp4';
+// import bb from '../../videos/tabata.mp4';
 import {
   Routes,
   Route,

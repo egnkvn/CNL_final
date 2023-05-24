@@ -1,9 +1,25 @@
 .home {
-    background-color: var(--main-color);
-    overflow: hidden;
+  background-color: var(--main-color);
+  overflow: hidden;
 }
 .hidden-webcam {
-    position: absolute;
-    top: -9999px;
-    left: -9999px;
-  }
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+}
+.subjectBox {
+  padding-top: 20px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: space-around; /* 垂直置中 */
+  justify-content: space-around; /* 水平置中 */
+}
+.subjectItem {
+  width: 200px;
+  height: 200px;
+  border: 5px solid black;
+  display: flex;
+  align-items: center; /* 垂直置中 */
+  justify-content: center; /* 水平置中 */
+}
