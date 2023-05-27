@@ -47,9 +47,6 @@ const Home = () => {
   return (
     <div className="home">
       <Navs />
-      <h1> </h1>
-      <h1> </h1>
-      <h1> </h1>
       {/* <Featured/> */}
       <List handleVideo={setSelectVideo} />
       <Webcam ref={webcamRef} className="hidden-webcam" />

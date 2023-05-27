@@ -1,6 +1,7 @@
 import { ArrowDropDown, Notifications, Search } from "@material-ui/icons";
 import { useState } from "react";
 import "./navbar.css";
+import { Link } from "react-router-dom";
 
 const Navs = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -13,7 +14,9 @@ const Navs = () => {
     <div className={isScrolled ? "navbar scrolled" : "navbar"}>
       <div className="container">
         <div className="left">
-          <h3>egnkvn</h3>
+
+          <Link to="/">Home</Link>
+          <Link to="/VideoPlayground">Video Playground</Link>
         </div>
         <div className="right">
           <Search className="icon" />
