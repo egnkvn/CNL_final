@@ -48,6 +48,7 @@ const Home = () => {
     <div className="home">
       <Navs />
       {/* <Featured/> */}
+      <div className="topmargin"/>
       <List handleVideo={setSelectVideo} />
       <Webcam ref={webcamRef} className="hidden-webcam" />
       <div className="subjectBox">

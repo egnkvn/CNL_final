@@ -32,14 +32,14 @@ export default function Listitem({ index }) {
       />
       {isHovered && (
         <>
-          {/* <ReactPlayer
+          <ReactPlayer
             className='react-player fixed-bottom'
-            url= {bb}
+            url= {'https://www.youtube.com/watch?v=ZIyLmfF2PMY&ab_channel=%EC%8A%A4%EB%B8%8C%EC%8A%A4%EC%BC%80%EC%9D%B4%ED%8C%9DZOOM'}
             width='100%'
             height='100%'
             controls = {true}
-          /> */}
-          <div className="itemInfo">
+          />
+          {/* <div className="itemInfo">
             <div className="icons">
               <PlayArrow className="icon" handleOnclick = {console.log(index)}/>
               <Add className="icon" onClick={() => console.log(0)}>
@@ -53,12 +53,12 @@ export default function Listitem({ index }) {
               <span className="limit">+16</span>
               <span>1999</span>
             </div>
-            {/* <div className="desc">
+            <div className="desc">
               Lorem ipsum dolor, sit amet consectetur adipisicing elit.
               Praesentium hic rem eveniet error possimus, neque ex doloribus.
-            </div> */}
+            </div>
             <div className="genre">Action</div>
-          </div>
+          </div> */}
         </>
       )}
     </div>

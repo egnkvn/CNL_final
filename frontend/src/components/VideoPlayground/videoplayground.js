@@ -1,4 +1,4 @@
-import bb from '../../videos/bb.mp4';
+// import bb from '../../videos/bb.mp4';
 import ReactPlayer from 'react-player';
 import Navs from '../navbar/Navs';
 
@@ -9,7 +9,7 @@ const VideoPlayground = () => {
             <Navs />
             <ReactPlayer
                 className='react-player fixed-bottom'
-                url= {bb}
+                // url= {bb}
                 width='100%'
                 height='100%'
                 controls = {true}

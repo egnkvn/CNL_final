@@ -15,8 +15,8 @@ const Navs = () => {
       <div className="container">
         <div className="left">
 
-          <Link to="/">Home</Link>
-          <Link to="/VideoPlayground">Video Playground</Link>
+          <span><Link to="/">Home</Link></span>
+          <span><Link to="/VideoPlayground">Video Playground</Link></span>
         </div>
         <div className="right">
           <Search className="icon" />
