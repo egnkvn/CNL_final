@@ -20,4 +20,16 @@ router.get("/category", async (req, res, next) => {
   const result = await Model.getCategoryResult(req.query.subject, next);
   res.status(200).send({ videos: result });
 });
+
+router.put("/hot/:id", async (req, res, next) => {
+  const result = await Model.updateVideoView(req.params.id, next);
+  console.log(result);
+  if (result.affectedRows == 1) res.status(200).send("OK");
+  else res.status(500).send("DB Error");
+});
+
+router.get("/hot", async (req, res, next) => {
+  const result = await Model.getHotVideo(next);
+  res.status(200).send({videos: result});
+});
 export default router;

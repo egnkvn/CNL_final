@@ -37,6 +37,21 @@ const Model = {
     );
     return result[0];
   },
+  updateVideoView: async (id, next) => {
+    const promiseDB = db.promise();
+    const result = await promiseDB.query(
+      "UPDATE video SET ctr = ctr + 1 WHERE id = ?",
+      [id]
+    );
+    return result[0];
+  },
+  getHotVideo: async (next) => {
+    const promiseDB = db.promise();
+    const result = await promiseDB.query(
+      "SELECT * FROM video ORDER BY ctr DESC LIMIT 10"
+    );
+    return result[0];
+  },
 };
 
 export { Model };
