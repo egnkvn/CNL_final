@@ -14,7 +14,6 @@ const Navs = () => {
     <div className={isScrolled ? "navbar scrolled" : "navbar"}>
       <div className="container">
         <div className="left">
-
           <span><Link to="/">Home</Link></span>
           <span><Link to="/VideoPlayground">Video Playground</Link></span>
         </div>

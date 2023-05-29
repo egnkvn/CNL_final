@@ -39,7 +39,7 @@ const List = (setSelectVideo) => {
             style={{ display: !isMoved && "none" }}
           />
           <div className="container" ref={listRef}>
-            <Listitem index={0} onClick={console.log('vnskdml')}/>
+            <Listitem index={0} />
             <Listitem index={1} />
             <Listitem index={2} />
             <Listitem index={3} />
