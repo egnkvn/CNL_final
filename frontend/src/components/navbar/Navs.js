@@ -1,30 +1,27 @@
 import { ArrowDropDown, Notifications, Search } from "@material-ui/icons";
 import { Button, TextField } from '@material-ui/core';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./navbar.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-const Navs = () => {
+const Navs = ({ updateSearching, updateSearchResult }) => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [result, setResult] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
 
-  const getSearch = async (keyword, subject) => {
+  const handleSearch = async () => {
+    console.log('Performing search for:', searchQuery);
+    // await getSearch(searchQuery, undefined);
     const {
       data: { videos },
-    } = await axios.get("http://localhost:4000/video/search",{
+    } = await axios.get("http://localhost:4000/video/search", {
       params: {
-        keyword: keyword,
-        subject: subject
-      }
+        keyword: searchQuery,
+        subject: undefined,
+      },
     });
-    console.log(videos.length);
-  };
-
-  const handleSearch = () => {
-    console.log('Performing search for:', searchQuery);
-    getSearch(searchQuery, undefined);
+    updateSearchResult(videos);
+    updateSearching(true);
   };
 
   const handleInputChange = (event) => {
@@ -40,7 +37,7 @@ const Navs = () => {
     <div className={isScrolled ? "navbar scrolled" : "navbar"}>
       <div className="container">
         <div className="left">
-          <span><Link to="/">Home</Link></span>
+          <span onClick={() => updateSearching(false)}><Link to="/">Home</Link></span>
           <span><Link to="/VideoPlayground">Video Playground</Link></span>
         </div>
         <div className="right">

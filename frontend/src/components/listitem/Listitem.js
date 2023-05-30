@@ -6,9 +6,9 @@ import { Link } from "react-router-dom";
 export default function Listitem({ ...props }) {
   const [isHovered, setIsHovered] = useState(false);
 
-  useEffect(() => {
-    console.log(props.path);
-  }, [props]);
+  // useEffect(() => {
+  //   console.log(props.path);
+  // }, [props]);
 
   return (
     <div

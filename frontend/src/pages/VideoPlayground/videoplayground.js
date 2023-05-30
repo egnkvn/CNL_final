@@ -33,10 +33,10 @@ const VideoPlayground = () => {
     const location = useLocation();
     const path = location.state;
 
-    useEffect(() => {
-      console.log(path);
-      console.log(location);
-    }, []);
+    // useEffect(() => {
+    //   console.log(path);
+    //   console.log(location);
+    // }, []);
 
     return (
         <div>
