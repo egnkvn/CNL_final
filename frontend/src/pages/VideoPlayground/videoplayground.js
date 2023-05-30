@@ -1,4 +1,3 @@
-import bb from '../../videos/Chin_Lec1.mp4';
 import "./videoplayground.css";
 import ReactPlayer from 'react-player';
 import Navs from '../../components/navbar/Navs';
@@ -6,7 +5,8 @@ import Webcam from "react-webcam";
 import { CameraOptions, useFaceDetection } from "react-use-face-detection";
 import { Camera } from "@mediapipe/camera_utils";
 import FaceDetection from "@mediapipe/face_detection";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 const width = 500;
 const height = 500;
@@ -29,6 +29,15 @@ const VideoPlayground = () => {
           height,
         }),
     });
+
+    const location = useLocation();
+    const path = location.state;
+
+    useEffect(() => {
+      console.log(path);
+      console.log(location);
+    }, []);
+
     return (
         <div>
             <Navs />
@@ -36,7 +45,7 @@ const VideoPlayground = () => {
                 <>
                   <ReactPlayer
                       className='react-player fixed-bottom'
-                      url={bb}
+                      url={"http://localhost:4000/video/play?path=" + path}
                       width='100%'
                       height='100%'
                       playing={play}
@@ -45,7 +54,7 @@ const VideoPlayground = () => {
                 </>
                 ) : (
                 <>
-                    {console.log(facesDetected)}
+                    {/* {console.log(facesDetected)} */}
                     {/* {alert('There are ', {facesDetected}, 'face detected. Video stopped.')} */}
                     <h2>Video stopped. More than one face detected.</h2>
                 </>
