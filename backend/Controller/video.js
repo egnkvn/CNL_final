@@ -1,4 +1,6 @@
 import express from "express";
+import fs from "fs";
+import path from "path";
 import { Model } from "../Model/video.js";
 const router = express.Router();
 
@@ -30,6 +32,16 @@ router.put("/hot/:id", async (req, res, next) => {
 
 router.get("/hot", async (req, res, next) => {
   const result = await Model.getHotVideo(next);
-  res.status(200).send({videos: result});
+  res.status(200).send({ videos: result });
+});
+
+router.get("/play", async (req, res, next) => {
+  try {
+    const videoPath = req.query.path;
+    let data = fs.readFileSync(path.resolve(videoPath));
+    res.status(200).send(data);
+  } catch (err) {
+    res.status(500).send("Something wrong!");
+  }
 });
 export default router;
