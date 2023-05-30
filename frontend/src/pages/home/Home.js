@@ -2,10 +2,9 @@ import Navs from "../../components/navbar/Navs";
 import "./home.css";
 import List from "../../components/list/List";
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { Button, Grid } from '@material-ui/core';
+import axios from "../../axios.js";
+import { Button, Grid } from "@material-ui/core";
 import Listitem from "../../components/listitem/Listitem";
-
 
 const Home = () => {
   const [subject, setSubject] = useState([]);
@@ -15,7 +14,7 @@ const Home = () => {
   const getSubject = async () => {
     const {
       data: { subject },
-    } = await axios.get("http://localhost:4000/video/subject");
+    } = await axios.get("/api/video/subject");
     setSubject(subject);
   };
 
@@ -24,10 +23,10 @@ const Home = () => {
   }, []);
 
   const handleClick = async (item) => {
-    console.log('Performing search for:', item);
+    console.log("Performing search for:", item);
     const {
       data: { videos },
-    } = await axios.get("http://localhost:4000/video/search", {
+    } = await axios.get("/api/video/search", {
       params: {
         keyword: item,
         subject: undefined,
@@ -50,34 +49,42 @@ const Home = () => {
   }, [searchResult]);
 
   return (
-      <div className="home">
-        <Navs updateSearching={updateSearching} updateSearchResult={updateSearchResult} />
-        {searching ? (
+    <div className="home">
+      <div className="topmargin" />
+      <Navs
+        updateSearching={updateSearching}
+        updateSearchResult={updateSearchResult}
+      />
+      {searching ? (
         <>
-          {searchResult.map((video) => {
+          <div className="resultWrapper">
+            {searchResult.map((video) => {
               return (
-                <Listitem {...video} />
-              )
-          })}
+                <div className="resultBox">
+                  <Listitem {...video} />      
+                  <p>{video.title}</p> 
+                </div>
+              );
+            })}
+          </div>
         </>
-        ) : (
+      ) : (
         <>
-          <div className="topmargin" />
-            <List />
-            <div className="subjectBox">
-              {subject.map((item) => {
-                return (
-                  <div className="subjectItem">
-                    <Button onClick={() => handleClick(item)}>
-                      <h1>{item}</h1>
-                    </Button>
-                  </div>
-                );
-              })}
-            </div>
+          <List />
+          <div className="subjectBox">
+            {subject.map((item) => {
+              return (
+                <div className="subjectItem">
+                  <Button onClick={() => handleClick(item)}>
+                    <h1>{item}</h1>
+                  </Button>
+                </div>
+              );
+            })}
+          </div>
         </>
-        )}
-      </div>
+      )}
+    </div>
   );
 };
 

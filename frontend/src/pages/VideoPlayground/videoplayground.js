@@ -1,6 +1,6 @@
 import "./videoplayground.css";
-import ReactPlayer from 'react-player';
-import Navs from '../../components/navbar/Navs';
+import ReactPlayer from "react-player";
+import Navs from "../../components/navbar/Navs";
 import Webcam from "react-webcam";
 import { CameraOptions, useFaceDetection } from "react-use-face-detection";
 import { Camera } from "@mediapipe/camera_utils";
@@ -12,8 +12,10 @@ const width = 500;
 const height = 500;
 
 const VideoPlayground = () => {
-    const [play, setPlay] = useState(true);
-    const { webcamRef, boundingBox, isLoading, detected, facesDetected } =
+  const [play, setPlay] = useState(true);
+  const [searching, setSearching] = useState(false);
+  const [searchResult, setSearchResult] = useState([]);
+  const { webcamRef, boundingBox, isLoading, detected, facesDetected } =
     useFaceDetection({
       faceDetectionOptions: {
         model: "short",
@@ -30,39 +32,45 @@ const VideoPlayground = () => {
         }),
     });
 
-    const location = useLocation();
-    const path = location.state;
+  const location = useLocation();
+  const path = location.state;
 
-    // useEffect(() => {
-    //   console.log(path);
-    //   console.log(location);
-    // }, []);
+  const updateSearching = async (value) => {
+    setSearching(value);
+  };
 
-    return (
-        <div>
-            <Navs />
-            {facesDetected === 1 ? (
-                <>
-                  <ReactPlayer
-                      className='react-player fixed-bottom'
-                      url={"http://localhost:4000/video/play?path=" + path}
-                      width='100%'
-                      height='100%'
-                      playing={play}
-                      controls={true}
-                  />
-                </>
-                ) : (
-                <>
-                    {/* {console.log(facesDetected)} */}
-                    {/* {alert('There are ', {facesDetected}, 'face detected. Video stopped.')} */}
-                    <h2>Video stopped. More than one face detected.</h2>
-                </>
-            )}
-            <Webcam ref={webcamRef} className="hidden-webcam" />
-            <h2>{facesDetected}</h2>
-        </div>
-    );
-}
+  const updateSearchResult = (value) => {
+    setSearchResult(value);
+  };
+
+  return (
+    <div>
+      <Navs
+        updateSearching={updateSearching}
+        updateSearchResult={updateSearchResult}
+      />
+      {facesDetected === 1 ? (
+        <>
+          <ReactPlayer
+            className="react-player fixed-bottom"
+            url={"http://localhost:4000/api/video/play?path=" + path}
+            width="100%"
+            height="100%"
+            playing={play}
+            controls={true}
+          />
+        </>
+      ) : (
+        <>
+          {/* {console.log(facesDetected)} */}
+          {/* {alert('There are ', {facesDetected}, 'face detected. Video stopped.')} */}
+          <h2>Video stopped. More than one face detected.</h2>
+        </>
+      )}
+      <Webcam ref={webcamRef} className="hidden-webcam" />
+      <h2>{facesDetected}</h2>
+    </div>
+  );
+};
 
 export default VideoPlayground;

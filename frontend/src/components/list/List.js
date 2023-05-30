@@ -5,7 +5,7 @@ import {
 import { useRef, useState, useEffect  } from "react";
 import Listitem from "../listitem/Listitem";
 import "./list.css";
-import axios from "axios";
+import axios from "../../axios.js";
   
 const List = (setSelectVideo) => {
     const [isMoved, setIsMoved] = useState(false);
@@ -18,7 +18,7 @@ const List = (setSelectVideo) => {
     const getHotVideo = async () => {
       const {
         data: { videos },
-      } = await axios.get("http://localhost:4000/video/hot");
+      } = await axios.get("/api/video/hot");
       setHotVideo(videos);
     };
 
@@ -42,7 +42,7 @@ const List = (setSelectVideo) => {
 
     return (
       <div className="list">
-        <span className="listTitle">Continue to watch</span>
+        <span className="listTitle">最新上架</span>
         <div className="wrapper">
           <ArrowBackIosOutlined
             className="sliderArrow left"

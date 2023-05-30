@@ -3,7 +3,7 @@ import { Button, TextField } from '@material-ui/core';
 import { useState, useEffect } from "react";
 import "./navbar.css";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import axios from "../../axios.js";
 
 const Navs = ({ updateSearching, updateSearchResult }) => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -14,7 +14,7 @@ const Navs = ({ updateSearching, updateSearchResult }) => {
     // await getSearch(searchQuery, undefined);
     const {
       data: { videos },
-    } = await axios.get("http://localhost:4000/video/search", {
+    } = await axios.get("/api/video/search", {
       params: {
         keyword: searchQuery,
         subject: undefined,
@@ -37,8 +37,7 @@ const Navs = ({ updateSearching, updateSearchResult }) => {
     <div className={isScrolled ? "navbar scrolled" : "navbar"}>
       <div className="container">
         <div className="left">
-          <span onClick={() => updateSearching(false)}><Link to="/">Home</Link></span>
-          <span><Link to="/VideoPlayground">Video Playground</Link></span>
+          <span onClick={() => updateSearching(false)}><Link to="/"><h1>Home</h1></Link></span>
         </div>
         <div className="right">
         <TextField
