@@ -6,11 +6,13 @@ import Webcam from "react-webcam";
 import { CameraOptions, useFaceDetection } from "react-use-face-detection";
 import { Camera } from "@mediapipe/camera_utils";
 import FaceDetection from "@mediapipe/face_detection";
+import { useState } from "react";
 
 const width = 500;
 const height = 500;
 
 const VideoPlayground = () => {
+    const [play, setPlay] = useState(true);
     const { webcamRef, boundingBox, isLoading, detected, facesDetected } =
     useFaceDetection({
       faceDetectionOptions: {
@@ -31,16 +33,20 @@ const VideoPlayground = () => {
         <div>
             <Navs />
             {facesDetected === 1 ? (
-                <ReactPlayer
-                    className='react-player fixed-bottom'
-                    url={bb}
-                    width='100%'
-                    height='100%'
-                    controls={true}
-                />
+                <>
+                  <ReactPlayer
+                      className='react-player fixed-bottom'
+                      url={bb}
+                      width='100%'
+                      height='100%'
+                      playing={play}
+                      controls={true}
+                  />
+                </>
                 ) : (
                 <>
-                    {alert('There are ', {facesDetected}, 'face detected. Video stopped.')}
+                    {console.log(facesDetected)}
+                    {/* {alert('There are ', {facesDetected}, 'face detected. Video stopped.')} */}
                     <h2>Video stopped. More than one face detected.</h2>
                 </>
             )}
