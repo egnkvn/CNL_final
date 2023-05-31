@@ -52,13 +52,13 @@ const Navs = ({ updateSearching, updateSearchResult }) => {
             ),
           }}
         />
-          <div className="profile">
+          {/* <div className="profile">
             <ArrowDropDown className="icon" />
             <div className="options">
               <span>Settings</span>
               <span>Logout</span>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

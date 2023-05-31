@@ -16,7 +16,7 @@ export default function Listitem({ ...props }) {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <Link to="/VideoPlayground" state={props.path}>
+      <Link to="/VideoPlayground" state={props}>
         <img
           src={props.cover}
           alt=""

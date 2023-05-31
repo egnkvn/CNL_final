@@ -33,7 +33,8 @@ const VideoPlayground = () => {
     });
 
   const location = useLocation();
-  const path = location.state;
+  const path = location.state.path;
+  const title = location.state.title;
 
   const updateSearching = async (value) => {
     setSearching(value);
@@ -50,25 +51,25 @@ const VideoPlayground = () => {
         updateSearchResult={updateSearchResult}
       />
       {facesDetected === 1 ? (
-        <>
-          <ReactPlayer
-            className="react-player fixed-bottom"
-            url={"https://35.76.200.242/api/video/play?path=" + path}
-            width="100%"
-            height="100%"
-            playing={play}
-            controls={true}
-          />
-        </>
+        <div className="videoPlayer">
+          <iframe
+              src={path}
+              title={path}
+              style={{border:"0" ,height:"360px", width:"640px"}}
+              allowFullScreen="true"
+              allow="encrypted-media"
+            ></iframe>
+            <h1>{title}</h1>
+        </div>
       ) : (
-        <>
+        <div className="videoPlayer">
           {/* {console.log(facesDetected)} */}
           {/* {alert('There are ', {facesDetected}, 'face detected. Video stopped.')} */}
-          <h2>Video stopped. More than one face detected.</h2>
-        </>
+          <h2>Video stopped. More than one face detected, or there isn't any face in front of device.</h2>
+        </div>
       )}
       <Webcam ref={webcamRef} className="hidden-webcam" />
-      <h2>{facesDetected}</h2>
+      {/* <h2>{facesDetected}</h2> */}
     </div>
   );
 };
