@@ -2,9 +2,10 @@ import {
     ArrowBackIosOutlined,
     ArrowForwardIosOutlined,
   } from "@material-ui/icons";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect  } from "react";
 import Listitem from "../listitem/Listitem";
 import "./list.css";
+import axios from "../../axios.js";
   
 const List = (setSelectVideo) => {
     const [isMoved, setIsMoved] = useState(false);
@@ -12,6 +13,19 @@ const List = (setSelectVideo) => {
   
     const listRef = useRef();
   
+    const [hotVideo, setHotVideo] = useState([]);
+
+    const getHotVideo = async () => {
+      const {
+        data: { videos },
+      } = await axios.get("/api/video/hot");
+      setHotVideo(videos);
+    };
+
+    useEffect(() => {
+      getHotVideo();
+    }, []);
+
     const handleClick = (direction) => {
       setIsMoved(true);
       let distance = listRef.current.getBoundingClientRect().x - 50;
@@ -20,18 +34,15 @@ const List = (setSelectVideo) => {
         listRef.current.style.transform = `translateX(${230 + distance}px)`;
       }
       if (direction === "right" && slideNumber < 5) {
+        console.log(hotVideo[0].title);
         setSlideNumber(slideNumber + 1);
         listRef.current.style.transform = `translateX(${-230 + distance}px)`;
       }
     };
 
-    const handleVideo = () => {
-      console.log('lll')
-    };
-
     return (
       <div className="list">
-        <span className="listTitle">Continue to watch</span>
+        <span className="listTitle">最新上架</span>
         <div className="wrapper">
           <ArrowBackIosOutlined
             className="sliderArrow left"
@@ -39,16 +50,11 @@ const List = (setSelectVideo) => {
             style={{ display: !isMoved && "none" }}
           />
           <div className="container" ref={listRef}>
-            <Listitem index={0} onClick={console.log('vnskdml')}/>
-            <Listitem index={1} />
-            <Listitem index={2} />
-            <Listitem index={3} />
-            <Listitem index={4} />
-            <Listitem index={5} />
-            <Listitem index={6} />
-            <Listitem index={7} />
-            <Listitem index={8} />
-            <Listitem index={9} />
+            {hotVideo.map((item) => {
+              return (
+                <Listitem {...item} />
+              )
+            })}
           </div>
           <ArrowForwardIosOutlined
             className="sliderArrow right"

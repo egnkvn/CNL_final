@@ -1,69 +1,90 @@
 import Navs from "../../components/navbar/Navs";
-import Featured from "../../components/featured/Featured";
 import "./home.css";
 import List from "../../components/list/List";
-import React, { useState } from 'react';
-
+import React, { useState, useEffect } from "react";
+import axios from "../../axios.js";
+import { Button, Grid } from "@material-ui/core";
+import Listitem from "../../components/listitem/Listitem";
 
 const Home = () => {
-  // const videoElement = document.getElementsByClassName('input_video')[0];
-  // const canvasElement = document.getElementsByClassName('output_canvas')[0];
-  // const canvasCtx = canvasElement.getContext('2d');
-  // const drawingUtils = window;
-  
-  // function onResults(results) {
-  //   // Draw the overlays.
-  //   canvasCtx.save();
-  //   canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
-  //   canvasCtx.drawImage(
-  //       results.image, 0, 0, canvasElement.width, canvasElement.height);
-  //   if (results.detections.length > 0) {
-  //     drawingUtils.drawRectangle(
-  //         canvasCtx, results.detections[0].boundingBox,
-  //         {color: 'blue', lineWidth: 4, fillColor: '#00000000'});
-  //     drawingUtils.drawLandmarks(canvasCtx, results.detections[0].landmarks, {
-  //       color: 'red',
-  //       radius: 5,
-  //     });
-  //   }
-  //   console.log(results.detections.length)
-  //   canvasCtx.restore();
-  // }
-  
-  // const faceDetection = new FaceDetection({locateFile: (file) => {
-  //   return `https://cdn.jsdelivr.net/npm/@mediapipe/face_detection@0.0/${file}`;
-  // }});
-  // faceDetection.setOptions({
-  //   model: 'short',
-  //   minDetectionConfidence: 0.5
-  // });
-  // faceDetection.onResults(onResults);
-  
-  // const camera = new Camera(videoElement, {
-  //   onFrame: async () => {
-  //     await faceDetection.send({image: videoElement});
-  //   },
-  //   width: 1280,
-  //   height: 720
-  // });
-  // camera.start();
-  const [selectVideo, setSelectVideo] = useState(-1)
+  const [subject, setSubject] = useState([]);
+  const [searching, setSearching] = useState(false);
+  const [searchResult, setSearchResult] = useState([]);
+
+  const getSubject = async () => {
+    const {
+      data: { subject },
+    } = await axios.get("/api/video/subject");
+    setSubject(subject);
+  };
+
+  useEffect(() => {
+    getSubject();
+  }, []);
+
+  const handleClick = async (item) => {
+    console.log("Performing search for:", item);
+    const {
+      data: { videos },
+    } = await axios.get("/api/video/search", {
+      params: {
+        keyword: item,
+        subject: undefined,
+      },
+    });
+    updateSearchResult(videos);
+    updateSearching(true);
+  };
+
+  const updateSearching = async (value) => {
+    setSearching(value);
+  };
+
+  const updateSearchResult = (value) => {
+    setSearchResult(value);
+  };
+
+  useEffect(() => {
+    console.log(searchResult);
+  }, [searchResult]);
+
   return (
     <div className="home">
-      <Navs/>
-      <Featured/>
-      <List handleVideo = {setSelectVideo}/>
-
-      {/* <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils@0.1/camera_utils.js" crossorigin="anonymous"></script>
-      <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils@0.1/control_utils.js" crossorigin="anonymous"></script>
-      <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils@0.1/drawing_utils.js" crossorigin="anonymous"></script>
-      <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_detection@0.0/face_detection.js" crossorigin="anonymous"></script>
-      <div class="container">
-        <video class="input_video"></video>
-        <canvas class="output_canvas" width="1280px" height="720px"></canvas>
-      </div> */}
+      <div className="topmargin" />
+      <Navs
+        updateSearching={updateSearching}
+        updateSearchResult={updateSearchResult}
+      />
+      {searching ? (
+        <>
+          <div className="resultWrapper">
+            {searchResult.map((video) => {
+              return (
+                <div className="resultBox">
+                  <Listitem {...video} />      
+                  <p>{video.title}</p> 
+                </div>
+              );
+            })}
+          </div>
+        </>
+      ) : (
+        <>
+          <List />
+          <div className="subjectBox">
+            {subject.map((item) => {
+              return (
+                <div className="subjectItem">
+                  <Button onClick={() => handleClick(item)}>
+                    <h1>{item}</h1>
+                  </Button>
+                </div>
+              );
+            })}
+          </div>
+        </>
+      )}
     </div>
-    
   );
 };
 
