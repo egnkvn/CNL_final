@@ -1,9 +1,9 @@
-import axios from 'axios'
+import axios from "axios";
 
-const API_ROOT = "http://localhost:4000"
+const API_ROOT = "https://35.76.200.242/";
 
 const instance = axios.create({
-    baseURL: API_ROOT,
-})
+  baseURL: API_ROOT,
+});
 
 export default instance;

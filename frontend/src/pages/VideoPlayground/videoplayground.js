@@ -53,7 +53,7 @@ const VideoPlayground = () => {
         <>
           <ReactPlayer
             className="react-player fixed-bottom"
-            url={"http://localhost:4000/api/video/play?path=" + path}
+            url={"https://35.76.200.242/api/video/play?path=" + path}
             width="100%"
             height="100%"
             playing={play}
