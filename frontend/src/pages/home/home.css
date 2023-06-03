@@ -1,5 +1,5 @@
-.home {
-  background-color: var(--main-color);
+.homepage {
+  background-color: black;
   overflow: hidden;
 }
 
@@ -38,8 +38,9 @@
 }
 .resultBox{
   width: 300px;
-  height: 160px;
+  height: 200px;
 }
 .resultBox p{
   margin-top: 0px;
+  color: white;
 }

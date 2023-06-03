@@ -5,7 +5,7 @@ import "./navbar.css";
 import { Link } from "react-router-dom";
 import axios from "../../axios.js";
 
-const Navs = ({ updateSearching, updateSearchResult }) => {
+const Navs = ({ updateSearching, updateSearchResult, subject }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -17,6 +17,20 @@ const Navs = ({ updateSearching, updateSearchResult }) => {
     } = await axios.get("/api/video/search", {
       params: {
         keyword: searchQuery,
+        subject: undefined,
+      },
+    });
+    updateSearchResult(videos);
+    updateSearching(true);
+  };
+
+  const handleClick = async (item) => {
+    console.log("Performing search for:", item);
+    const {
+      data: { videos },
+    } = await axios.get("/api/video/search", {
+      params: {
+        keyword: item,
         subject: undefined,
       },
     });
@@ -37,7 +51,18 @@ const Navs = ({ updateSearching, updateSearchResult }) => {
     <div className={isScrolled ? "navbar scrolled" : "navbar"}>
       <div className="container">
         <div className="left">
-          <span onClick={() => updateSearching(false)}><Link to="/"><h1>Home</h1></Link></span>
+          <span onClick={() => updateSearching(false)}>
+            <Link to="/">
+              <h1>Home</h1>
+            </Link>
+          </span>
+          {subject.map((item) => {
+              return (
+                <span onClick={() => handleClick(item)}>
+                  <h1>{item}</h1>
+                </span>
+              );
+            })}
         </div>
         <div className="right">
         <TextField

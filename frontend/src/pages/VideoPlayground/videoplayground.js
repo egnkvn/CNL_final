@@ -1,5 +1,4 @@
 import "./videoplayground.css";
-import ReactPlayer from "react-player";
 import Navs from "../../components/navbar/Navs";
 import Webcam from "react-webcam";
 import { CameraOptions, useFaceDetection } from "react-use-face-detection";
@@ -12,6 +11,7 @@ const width = 500;
 const height = 500;
 
 const VideoPlayground = () => {
+
   const [play, setPlay] = useState(true);
   const [searching, setSearching] = useState(false);
   const [searchResult, setSearchResult] = useState([]);
@@ -33,8 +33,9 @@ const VideoPlayground = () => {
     });
 
   const location = useLocation();
-  const path = location.state.path;
-  const title = location.state.title;
+  const path = location.state.video.path;
+  const title = location.state.video.title;
+  const subject = location.state.subject;
 
   const updateSearching = async (value) => {
     setSearching(value);
@@ -49,6 +50,7 @@ const VideoPlayground = () => {
       <Navs
         updateSearching={updateSearching}
         updateSearchResult={updateSearchResult}
+        subject={subject}
       />
       {facesDetected === 1 ? (
         <div className="videoPlayer">

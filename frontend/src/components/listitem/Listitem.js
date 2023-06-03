@@ -3,12 +3,12 @@ import { useState, useEffect } from "react";
 import { Button } from '@material-ui/core';
 import { Link } from "react-router-dom";
 
-export default function Listitem({ ...props }) {
+export default function Listitem({ video,subject}) {
   const [isHovered, setIsHovered] = useState(false);
 
   // useEffect(() => {
-  //   console.log(props.path);
-  // }, [props]);
+  //   console.log(video, subject);
+  // }, []);
 
   return (
     <div
@@ -16,9 +16,9 @@ export default function Listitem({ ...props }) {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <Link to="/VideoPlayground" state={props}>
+      <Link to="/VideoPlayground" state={{video,subject}}>
         <img
-          src={props.cover}
+          src={video.cover}
           alt=""
         />
       </Link>

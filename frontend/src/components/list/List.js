@@ -7,7 +7,7 @@ import Listitem from "../listitem/Listitem";
 import "./list.css";
 import axios from "../../axios.js";
   
-const List = (setSelectVideo) => {
+const List = ({ subject }) => {
     const [isMoved, setIsMoved] = useState(false);
     const [slideNumber, setSlideNumber] = useState(0);
   
@@ -52,7 +52,7 @@ const List = (setSelectVideo) => {
           <div className="container" ref={listRef}>
             {hotVideo.map((item) => {
               return (
-                <Listitem {...item} />
+                <Listitem video={item} subject={subject} />
               )
             })}
           </div>
