@@ -1,6 +1,7 @@
 import "./videoplayground.css";
 import Navs from "../../components/navbar/Navs";
 import Webcam from "react-webcam";
+import ReactPlayer from "react-player";
 import { CameraOptions, useFaceDetection } from "react-use-face-detection";
 import { Camera } from "@mediapipe/camera_utils";
 import FaceDetection from "@mediapipe/face_detection";
@@ -11,7 +12,6 @@ const width = 500;
 const height = 500;
 
 const VideoPlayground = () => {
-
   const [play, setPlay] = useState(true);
   const [searching, setSearching] = useState(false);
   const [searchResult, setSearchResult] = useState([]);
@@ -54,22 +54,36 @@ const VideoPlayground = () => {
       />
       {facesDetected === 1 ? (
         <div className="videoPlayer">
-          <div className="margin"/>
-          <iframe
+          <div className="margin" />
+          {path === "upload/Phy_Lec3-1.mp4" ? (
+            <ReactPlayer
+              className="react-player fixed-bottom"
+              url={"https://35.76.200.242/api/video/play?path=" + path}
+              width="640px"
+              height="360px"
+              playing={play}
+              controls={true}
+            />
+          ) : (
+            <iframe
               src={path}
               title={path}
-              style={{border:"0" ,height:"360px", width:"640px"}}
+              style={{ border: "0", height: "360px", width: "640px" }}
               allowFullScreen="true"
               allow="encrypted-media"
             ></iframe>
-            <h1>{title}</h1>
+          )}
+          <h1>{title}</h1>
         </div>
       ) : (
         <div className="videoPlayer">
           {/* {console.log(facesDetected)} */}
           {/* {alert('There are ', {facesDetected}, 'face detected. Video stopped.')} */}
-          <div className="margin"/>
-          <h1>Video stopped. More than one face detected, or there isn't any face in front of device.</h1>
+          <div className="margin" />
+          <h1>
+            Video stopped. More than one face detected, or there isn't any face
+            in front of device.
+          </h1>
         </div>
       )}
       <Webcam ref={webcamRef} className="hidden-webcam" />

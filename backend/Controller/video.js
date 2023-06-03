@@ -38,6 +38,7 @@ router.get("/hot", async (req, res, next) => {
 router.get("/play", async (req, res, next) => {
   try {
     const videoPath = req.query.path;
+    print(path.resolve(videoPath))
     let data = fs.readFileSync(path.resolve(videoPath));
     res.status(200).send(data);
   } catch (err) {
