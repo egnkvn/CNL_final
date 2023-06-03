@@ -2,6 +2,7 @@ import * as faceapi from '@vladmandic/face-api';
 import * as ort from 'onnxruntime-web';
 import "./videoplayground.css";
 import ReactPlayer from "react-player";
+import { Alert } from 'react-alert'
 import Navs from "../../components/navbar/Navs";
 import { useRef, useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
@@ -10,7 +11,7 @@ const videoHeight = 480;
 const videoWidth = 640;
 
 function getLabeledFaceDescriptions() {
-  const labels = ["gordon"];
+  const labels = ["matt", "gordon"];
   return Promise.all(
     labels.map(async (label) => {
       const descriptions = [];
@@ -136,14 +137,17 @@ const VideoPlayground = () => {
       const results = resizedDetections.map((d) => {
         return faceMatcher.findBestMatch(d.descriptor);
       });
+      
       if (results.length > 1){
-        console.log("more than one people")
+        alert('more than one people')
+        console.log('more than one people');
         flag = 0
       }
       else{
         results.forEach((result, i) => {
           if(result["_label"] == "unknown"){
-            console.log("unauthorized!")
+            alert('unauthorized')
+            console.log('unauthorized!');
             flag=2
           }
           else{
@@ -169,11 +173,13 @@ const VideoPlayground = () => {
         
           if(_text[0] <= _text[1] || _text[0] <= _text[1]){
             flag=3
-            console.log("you're holding some picture")
+            alert('Please show the camera your face!')
+            console.log("Please show the camera your face!")
           }
         }
       }
-    }, 100);
+      console.log(flag)
+    }, 10);
   };
   const location = useLocation();
   const path = location.state;
@@ -204,18 +210,9 @@ const VideoPlayground = () => {
           />
         </>
       ) : 
-      flag === 0 ? (
+      (
         <>
-          <h2>Video stopped. More than one face detected.</h2>
-        </>
-      ) : 
-      flag === 2 ? (
-        <>
-        <h2>You are not an authorized user.</h2>
-        </>
-      ) : (
-        <>
-        <h2>Please show the camera your own face.</h2>
+          <h2>Video stopped.</h2>
         </>
       )
       }
