@@ -21,7 +21,6 @@ const Home = () => {
     getSubject();
   }, []);
 
-
   const updateSearching = async (value) => {
     setSearching(value);
   };
@@ -35,36 +34,38 @@ const Home = () => {
   }, [searchResult]);
 
   return (
-    <div className="homepage">
-      <div className="topmargin" />
-      <Navs
-        updateSearching={updateSearching}
-        updateSearchResult={updateSearchResult}
-        subject={subject}
-      />
-      <List subject={subject}/>
-      {searching ? (
-        <>
-          <div className="resultWrapper">
-            {searchResult.map((video) => {
-              return (
-                <div className="resultBox">
-                  <Listitem video={video} subject={subject}/>
-                  <p>{video.title}</p>
-                </div>
-              );
-            })}
-          </div>
-        </>
-      ) : (
-        <>
-          <div className="resultWrapper">
-            <div className="resultBox">
+    <>
+      <div className="background" />
+      <div className="homepage">
+        <div className="topmargin" />
+        <Navs
+          updateSearching={updateSearching}
+          updateSearchResult={updateSearchResult}
+          subject={subject}
+        />
+        <List subject={subject} />
+        {searching ? (
+          <>
+            <div className="resultWrapper">
+              {searchResult.map((video) => {
+                return (
+                  <div className="resultBox">
+                    <Listitem video={video} subject={subject} />
+                    <p>{video.title}</p>
+                  </div>
+                );
+              })}
             </div>
-          </div>
-        </>
-      )}
-    </div>
+          </>
+        ) : (
+          <>
+            <div className="resultWrapper">
+              <div className="resultBox"></div>
+            </div>
+          </>
+        )}
+      </div>
+    </>
   );
 };
 

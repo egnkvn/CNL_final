@@ -2,10 +2,17 @@
   background-color: black;
   overflow: hidden;
 }
-
+.background{
+  height: 100vw;
+  width: 100vw;
+  position: absolute;
+  background-color: black;
+  z-index: -1;
+}
 .topmargin{
   height: 50px;
   width: 100%;
+  z-index: 1;
 }
 .subjectBox {
   padding-top: 20px;
@@ -31,9 +38,10 @@
 .resultWrapper{
   margin: 50px;
   width: 100vw;
+  /* height: 100vw; */
   display: flex;
   align-items: space-around; /* 垂直置中 */
-  justify-content: center; /* 水平置中 */
+  justify-content: center; 
   flex-wrap: wrap;
 }
 .resultBox{

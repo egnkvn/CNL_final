@@ -54,6 +54,7 @@ const VideoPlayground = () => {
       />
       {facesDetected === 1 ? (
         <div className="videoPlayer">
+          <div className="margin"/>
           <iframe
               src={path}
               title={path}
@@ -67,7 +68,8 @@ const VideoPlayground = () => {
         <div className="videoPlayer">
           {/* {console.log(facesDetected)} */}
           {/* {alert('There are ', {facesDetected}, 'face detected. Video stopped.')} */}
-          <h2>Video stopped. More than one face detected, or there isn't any face in front of device.</h2>
+          <div className="margin"/>
+          <h1>Video stopped. More than one face detected, or there isn't any face in front of device.</h1>
         </div>
       )}
       <Webcam ref={webcamRef} className="hidden-webcam" />
